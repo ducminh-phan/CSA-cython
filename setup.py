@@ -17,12 +17,7 @@ pyx_files = find_pyx()
 
 from Cython.Build import cythonize
 
-extensions = cythonize(pyx_files, language_level=3,
-                       compiler_directives={
-                           'embedsignature': True,
-                           'boundscheck': False,
-                           'wraparound': False
-                       })
+extensions = cythonize(pyx_files, language_level=3)
 
 setup(
     name="csa",

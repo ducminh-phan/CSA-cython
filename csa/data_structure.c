@@ -837,7 +837,7 @@ static const char *__pyx_f[] = {
 /*--- Type declarations ---*/
 struct __pyx_t_3csa_14data_structure_StopTimeEvent;
 struct __pyx_t_3csa_14data_structure_Transfer;
-struct __pyx_t_3csa_14data_structure_HubPair;
+struct __pyx_t_3csa_14data_structure_HubLink;
 struct __pyx_t_3csa_14data_structure_Indices;
 struct __pyx_t_3csa_14data_structure_Stop;
 struct __pyx_t_3csa_14data_structure_Connection;
@@ -892,18 +892,19 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Transfer {
 /* "csa/data_structure.pxd":13
  *     int time
  * 
- * cdef packed struct HubPair:             # <<<<<<<<<<<<<<
- *     int walking_time
- *     int hub_id
+ * cdef packed struct HubLink:             # <<<<<<<<<<<<<<
+ *     int stop_id
+ *     int node_id
  */
 #if defined(__SUNPRO_C)
   #pragma pack(1)
 #elif !defined(__GNUC__)
   #pragma pack(push, 1)
 #endif
-struct __Pyx_PACKED __pyx_t_3csa_14data_structure_HubPair {
-  int walking_time;
-  int hub_id;
+struct __Pyx_PACKED __pyx_t_3csa_14data_structure_HubLink {
+  int stop_id;
+  int node_id;
+  int time;
 };
 #if defined(__SUNPRO_C)
   #pragma pack()
@@ -911,8 +912,8 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_HubPair {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":17
- *     int hub_id
+/* "csa/data_structure.pxd":18
+ *     int time
  * 
  * cdef packed struct Indices:             # <<<<<<<<<<<<<<
  *     int first
@@ -933,7 +934,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Indices {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":21
+/* "csa/data_structure.pxd":22
  *     int last
  * 
  * cdef packed struct Stop:             # <<<<<<<<<<<<<<
@@ -957,7 +958,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Stop {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":27
+/* "csa/data_structure.pxd":28
  *     Indices out_hubs_idx
  * 
  * cdef packed struct Connection:             # <<<<<<<<<<<<<<
@@ -983,7 +984,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Connection {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":33
+/* "csa/data_structure.pxd":34
  *     int departure_time, arrival_time
  * 
  * cdef struct Stats:             # <<<<<<<<<<<<<<

@@ -10,9 +10,10 @@ cdef packed struct Transfer:
     int target_id
     int time
 
-cdef packed struct HubPair:
-    int walking_time
-    int hub_id
+cdef packed struct HubLink:
+    int stop_id
+    int node_id
+    int time
 
 cdef packed struct Indices:
     int first

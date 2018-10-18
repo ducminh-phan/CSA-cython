@@ -11,7 +11,7 @@ from csa.csa import test
 def main(location, hl, profile, ranked):
     print(location, hl, profile, ranked)
 
-    test(location)
+    test(location, hl)
 
 
 if __name__ == "__main__":

@@ -955,7 +955,7 @@ struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
 struct __pyx_t_3csa_14data_structure_StopTimeEvent;
 struct __pyx_t_3csa_14data_structure_Transfer;
-struct __pyx_t_3csa_14data_structure_HubPair;
+struct __pyx_t_3csa_14data_structure_HubLink;
 struct __pyx_t_3csa_14data_structure_Indices;
 struct __pyx_t_3csa_14data_structure_Stop;
 struct __pyx_t_3csa_14data_structure_Connection;
@@ -1010,18 +1010,19 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Transfer {
 /* "csa/data_structure.pxd":13
  *     int time
  * 
- * cdef packed struct HubPair:             # <<<<<<<<<<<<<<
- *     int walking_time
- *     int hub_id
+ * cdef packed struct HubLink:             # <<<<<<<<<<<<<<
+ *     int stop_id
+ *     int node_id
  */
 #if defined(__SUNPRO_C)
   #pragma pack(1)
 #elif !defined(__GNUC__)
   #pragma pack(push, 1)
 #endif
-struct __Pyx_PACKED __pyx_t_3csa_14data_structure_HubPair {
-  int walking_time;
-  int hub_id;
+struct __Pyx_PACKED __pyx_t_3csa_14data_structure_HubLink {
+  int stop_id;
+  int node_id;
+  int time;
 };
 #if defined(__SUNPRO_C)
   #pragma pack()
@@ -1029,8 +1030,8 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_HubPair {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":17
- *     int hub_id
+/* "csa/data_structure.pxd":18
+ *     int time
  * 
  * cdef packed struct Indices:             # <<<<<<<<<<<<<<
  *     int first
@@ -1051,7 +1052,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Indices {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":21
+/* "csa/data_structure.pxd":22
  *     int last
  * 
  * cdef packed struct Stop:             # <<<<<<<<<<<<<<
@@ -1075,7 +1076,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Stop {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":27
+/* "csa/data_structure.pxd":28
  *     Indices out_hubs_idx
  * 
  * cdef packed struct Connection:             # <<<<<<<<<<<<<<
@@ -1101,7 +1102,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Connection {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":33
+/* "csa/data_structure.pxd":34
  *     int departure_time, arrival_time
  * 
  * cdef struct Stats:             # <<<<<<<<<<<<<<
@@ -1828,7 +1829,11 @@ static __Pyx_memviewslice *__pyx_vp_3csa_9timetable_stops = 0;
 #define __pyx_v_3csa_9timetable_stops (*__pyx_vp_3csa_9timetable_stops)
 static __Pyx_memviewslice *__pyx_vp_3csa_9timetable_transfers = 0;
 #define __pyx_v_3csa_9timetable_transfers (*__pyx_vp_3csa_9timetable_transfers)
-static PyObject *(*__pyx_f_3csa_9timetable_parse)(PyObject *, int __pyx_skip_dispatch); /*proto*/
+static __Pyx_memviewslice *__pyx_vp_3csa_9timetable_in_hubs = 0;
+#define __pyx_v_3csa_9timetable_in_hubs (*__pyx_vp_3csa_9timetable_in_hubs)
+static __Pyx_memviewslice *__pyx_vp_3csa_9timetable_out_hubs = 0;
+#define __pyx_v_3csa_9timetable_out_hubs (*__pyx_vp_3csa_9timetable_out_hubs)
+static PyObject *(*__pyx_f_3csa_9timetable_parse)(PyObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
 
 /* Module declarations from 'csa.csa' */
 static PyTypeObject *__pyx_array_type = 0;
@@ -1842,7 +1847,7 @@ static PyObject *contiguous = 0;
 static PyObject *indirect_contiguous = 0;
 static int __pyx_memoryview_thread_locks_used;
 static PyThread_type_lock __pyx_memoryview_thread_locks[8];
-static PyObject *__pyx_f_3csa_3csa_test(PyObject *, int __pyx_skip_dispatch); /*proto*/
+static PyObject *__pyx_f_3csa_3csa_test(PyObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
 static struct __pyx_array_obj *__pyx_array_new(PyObject *, Py_ssize_t, char *, char *, char *); /*proto*/
 static void *__pyx_align_pointer(void *, size_t); /*proto*/
 static PyObject *__pyx_memoryview_new(PyObject *, int, int, __Pyx_TypeInfo *); /*proto*/
@@ -1891,6 +1896,7 @@ static PyObject *__pyx_builtin_id;
 static PyObject *__pyx_builtin_IndexError;
 static const char __pyx_k_O[] = "O";
 static const char __pyx_k_c[] = "c";
+static const char __pyx_k_hl[] = "hl";
 static const char __pyx_k_id[] = "id";
 static const char __pyx_k_new[] = "__new__";
 static const char __pyx_k_obj[] = "obj";
@@ -1926,6 +1932,7 @@ static const char __pyx_k_memview[] = "memview";
 static const char __pyx_k_Ellipsis[] = "Ellipsis";
 static const char __pyx_k_getstate[] = "__getstate__";
 static const char __pyx_k_itemsize[] = "itemsize";
+static const char __pyx_k_location[] = "location";
 static const char __pyx_k_pyx_type[] = "__pyx_type";
 static const char __pyx_k_setstate[] = "__setstate__";
 static const char __pyx_k_TypeError[] = "TypeError";
@@ -2015,10 +2022,12 @@ static PyObject *__pyx_n_s_fortran;
 static PyObject *__pyx_n_u_fortran;
 static PyObject *__pyx_n_s_getstate;
 static PyObject *__pyx_kp_s_got_differing_extents_in_dimensi;
+static PyObject *__pyx_n_s_hl;
 static PyObject *__pyx_n_s_id;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_itemsize;
 static PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
+static PyObject *__pyx_n_s_location;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_memview;
 static PyObject *__pyx_n_s_mode;
@@ -2059,7 +2068,7 @@ static PyObject *__pyx_kp_s_unable_to_allocate_array_data;
 static PyObject *__pyx_kp_s_unable_to_allocate_shape_and_str;
 static PyObject *__pyx_n_s_unpack;
 static PyObject *__pyx_n_s_update;
-static PyObject *__pyx_pf_3csa_3csa_test(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_location); /* proto */
+static PyObject *__pyx_pf_3csa_3csa_test(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_location, PyObject *__pyx_v_hl); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_array___pyx_pf_15View_dot_MemoryView_5array_4__dealloc__(struct __pyx_array_obj *__pyx_v_self); /* proto */
@@ -2140,12 +2149,12 @@ static PyObject *__pyx_codeobj__25;
 /* "csa/csa.pyx":3
  * from csa.timetable cimport parse
  * 
- * cpdef test(location):             # <<<<<<<<<<<<<<
- *     parse(location)
+ * cpdef test(location, hl):             # <<<<<<<<<<<<<<
+ *     parse(location, hl)
  */
 
-static PyObject *__pyx_pw_3csa_3csa_1test(PyObject *__pyx_self, PyObject *__pyx_v_location); /*proto*/
-static PyObject *__pyx_f_3csa_3csa_test(PyObject *__pyx_v_location, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_3csa_3csa_1test(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_f_3csa_3csa_test(PyObject *__pyx_v_location, PyObject *__pyx_v_hl, CYTHON_UNUSED int __pyx_skip_dispatch) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2153,18 +2162,18 @@ static PyObject *__pyx_f_3csa_3csa_test(PyObject *__pyx_v_location, CYTHON_UNUSE
 
   /* "csa/csa.pyx":4
  * 
- * cpdef test(location):
- *     parse(location)             # <<<<<<<<<<<<<<
+ * cpdef test(location, hl):
+ *     parse(location, hl)             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __pyx_f_3csa_9timetable_parse(__pyx_v_location, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_3csa_9timetable_parse(__pyx_v_location, __pyx_v_hl, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "csa/csa.pyx":3
  * from csa.timetable cimport parse
  * 
- * cpdef test(location):             # <<<<<<<<<<<<<<
- *     parse(location)
+ * cpdef test(location, hl):             # <<<<<<<<<<<<<<
+ *     parse(location, hl)
  */
 
   /* function exit code */
@@ -2181,26 +2190,73 @@ static PyObject *__pyx_f_3csa_3csa_test(PyObject *__pyx_v_location, CYTHON_UNUSE
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3csa_3csa_1test(PyObject *__pyx_self, PyObject *__pyx_v_location); /*proto*/
-static char __pyx_doc_3csa_3csa_test[] = "test(location)";
-static PyObject *__pyx_pw_3csa_3csa_1test(PyObject *__pyx_self, PyObject *__pyx_v_location) {
+static PyObject *__pyx_pw_3csa_3csa_1test(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_3csa_3csa_1test(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_location = 0;
+  PyObject *__pyx_v_hl = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("test (wrapper)", 0);
-  __pyx_r = __pyx_pf_3csa_3csa_test(__pyx_self, ((PyObject *)__pyx_v_location));
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_location,&__pyx_n_s_hl,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_location)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_hl)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("test", 1, 2, 2, 1); __PYX_ERR(0, 3, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "test") < 0)) __PYX_ERR(0, 3, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_location = values[0];
+    __pyx_v_hl = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("test", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 3, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("csa.csa.test", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_3csa_3csa_test(__pyx_self, __pyx_v_location, __pyx_v_hl);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3csa_3csa_test(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_location) {
+static PyObject *__pyx_pf_3csa_3csa_test(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_location, PyObject *__pyx_v_hl) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("test", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_3csa_3csa_test(__pyx_v_location, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_3csa_3csa_test(__pyx_v_location, __pyx_v_hl, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -6466,7 +6522,7 @@ static PyObject *__pyx_memoryview_convert_item_to_object(struct __pyx_memoryview
  * 
  */
         __Pyx_XDECREF(__pyx_r);
-        __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_result, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 493, __pyx_L5_except_error)
+        __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_result, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 493, __pyx_L5_except_error)
         __Pyx_GOTREF(__pyx_t_1);
         __pyx_r = __pyx_t_1;
         __pyx_t_1 = 0;
@@ -14892,7 +14948,7 @@ static PyObject *__pyx_unpickle_Enum__set_state(struct __pyx_MemviewEnum_obj *__
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(1, 10, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->name);
@@ -14937,7 +14993,7 @@ static PyObject *__pyx_unpickle_Enum__set_state(struct __pyx_MemviewEnum_obj *__
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
       __PYX_ERR(1, 12, __pyx_L1_error)
     }
-    __pyx_t_6 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 12, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 12, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
@@ -15661,7 +15717,7 @@ static PyTypeObject __pyx_type___pyx_memoryviewslice = {
 };
 
 static PyMethodDef __pyx_methods[] = {
-  {"test", (PyCFunction)__pyx_pw_3csa_3csa_1test, METH_O, __pyx_doc_3csa_3csa_test},
+  {"test", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_3csa_3csa_1test, METH_VARARGS|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 
@@ -15749,10 +15805,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_u_fortran, __pyx_k_fortran, sizeof(__pyx_k_fortran), 0, 1, 0, 1},
   {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
   {&__pyx_kp_s_got_differing_extents_in_dimensi, __pyx_k_got_differing_extents_in_dimensi, sizeof(__pyx_k_got_differing_extents_in_dimensi), 0, 0, 1, 0},
+  {&__pyx_n_s_hl, __pyx_k_hl, sizeof(__pyx_k_hl), 0, 0, 1, 1},
   {&__pyx_n_s_id, __pyx_k_id, sizeof(__pyx_k_id), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_itemsize, __pyx_k_itemsize, sizeof(__pyx_k_itemsize), 0, 0, 1, 1},
   {&__pyx_kp_s_itemsize_0_for_cython_array, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
+  {&__pyx_n_s_location, __pyx_k_location, sizeof(__pyx_k_location), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_memview, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
   {&__pyx_n_s_mode, __pyx_k_mode, sizeof(__pyx_k_mode), 0, 0, 1, 1},
@@ -16222,6 +16280,8 @@ static int __Pyx_modinit_variable_import_code(void) {
   if (__Pyx_ImportVoidPtr(__pyx_t_2, "stats", (void **)&__pyx_vp_3csa_9timetable_stats, "struct __pyx_t_3csa_14data_structure_Stats") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ImportVoidPtr(__pyx_t_2, "stops", (void **)&__pyx_vp_3csa_9timetable_stops, "__Pyx_memviewslice") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ImportVoidPtr(__pyx_t_2, "transfers", (void **)&__pyx_vp_3csa_9timetable_transfers, "__Pyx_memviewslice") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ImportVoidPtr(__pyx_t_2, "in_hubs", (void **)&__pyx_vp_3csa_9timetable_in_hubs, "__Pyx_memviewslice") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ImportVoidPtr(__pyx_t_2, "out_hubs", (void **)&__pyx_vp_3csa_9timetable_out_hubs, "__Pyx_memviewslice") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   Py_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -16238,7 +16298,7 @@ static int __Pyx_modinit_function_import_code(void) {
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_import_code", 0);
   /*--- Function import code ---*/
   __pyx_t_1 = PyImport_ImportModule("csa.timetable"); if (!__pyx_t_1) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ImportFunction(__pyx_t_1, "parse", (void (**)(void))&__pyx_f_3csa_9timetable_parse, "PyObject *(PyObject *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ImportFunction(__pyx_t_1, "parse", (void (**)(void))&__pyx_f_3csa_9timetable_parse, "PyObject *(PyObject *, PyObject *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   Py_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -16448,7 +16508,7 @@ if (!__Pyx_RefNanny) {
   /* "csa/csa.pyx":1
  * from csa.timetable cimport parse             # <<<<<<<<<<<<<<
  * 
- * cpdef test(location):
+ * cpdef test(location, hl):
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
