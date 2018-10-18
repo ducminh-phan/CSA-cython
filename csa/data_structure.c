@@ -870,8 +870,8 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_StopTimeEvent {
  *     int departure_time
  * 
  * cdef packed struct Transfer:             # <<<<<<<<<<<<<<
- *     int time
- *     int dest_id
+ *     int source_id
+ *     int target_id
  */
 #if defined(__SUNPRO_C)
   #pragma pack(1)
@@ -879,8 +879,9 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_StopTimeEvent {
   #pragma pack(push, 1)
 #endif
 struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Transfer {
+  int source_id;
+  int target_id;
   int time;
-  int dest_id;
 };
 #if defined(__SUNPRO_C)
   #pragma pack()
@@ -888,8 +889,8 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Transfer {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":12
- *     int dest_id
+/* "csa/data_structure.pxd":13
+ *     int time
  * 
  * cdef packed struct HubPair:             # <<<<<<<<<<<<<<
  *     int walking_time
@@ -910,7 +911,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_HubPair {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":16
+/* "csa/data_structure.pxd":17
  *     int hub_id
  * 
  * cdef packed struct Indices:             # <<<<<<<<<<<<<<
@@ -932,7 +933,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Indices {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":20
+/* "csa/data_structure.pxd":21
  *     int last
  * 
  * cdef packed struct Stop:             # <<<<<<<<<<<<<<
@@ -956,7 +957,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Stop {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":26
+/* "csa/data_structure.pxd":27
  *     Indices out_hubs_idx
  * 
  * cdef packed struct Connection:             # <<<<<<<<<<<<<<
@@ -982,7 +983,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Connection {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":32
+/* "csa/data_structure.pxd":33
  *     int departure_time, arrival_time
  * 
  * cdef struct Stats:             # <<<<<<<<<<<<<<
@@ -993,6 +994,10 @@ struct __pyx_t_3csa_14data_structure_Stats {
   int num_stops;
   int num_trips;
   int num_nodes;
+  int num_transfers;
+  int num_events;
+  int num_in_hubs;
+  int num_out_hubs;
 };
 
 /* --- Runtime support code (head) --- */

@@ -6,8 +6,9 @@ cdef packed struct StopTimeEvent:
     int departure_time
 
 cdef packed struct Transfer:
+    int source_id
+    int target_id
     int time
-    int dest_id
 
 cdef packed struct HubPair:
     int walking_time
@@ -33,3 +34,7 @@ cdef struct Stats:
     int num_stops
     int num_trips
     int num_nodes
+    int num_transfers
+    int num_events
+    int num_in_hubs
+    int num_out_hubs

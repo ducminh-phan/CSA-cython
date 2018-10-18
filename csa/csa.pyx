@@ -1,8 +1,4 @@
-from csa.timetable cimport transfers, parse
+from csa.timetable cimport parse
 
 cpdef test(location):
     parse(location)
-
-    print(transfers)
-    print(transfers[0])
-    print(transfers[0].time)
