@@ -3,9 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
+        "extra_compile_args": [
+            "-O3"
+        ],
         "name": "csa.data_structure",
         "sources": [
-            ".\\csa\\data_structure.pyx"
+            "csa\\data_structure.pyx"
         ]
     },
     "module_name": "csa.data_structure"
@@ -835,7 +838,6 @@ static const char *__pyx_f[] = {
 
 
 /*--- Type declarations ---*/
-struct __pyx_t_3csa_14data_structure_StopTimeEvent;
 struct __pyx_t_3csa_14data_structure_Transfer;
 struct __pyx_t_3csa_14data_structure_HubLink;
 struct __pyx_t_3csa_14data_structure_Indices;
@@ -845,29 +847,6 @@ struct __pyx_t_3csa_14data_structure_Stats;
 
 /* "csa/data_structure.pxd":3
  * cdef int INF_TIME = 1_000_000_000
- * 
- * cdef packed struct StopTimeEvent:             # <<<<<<<<<<<<<<
- *     int stop_id
- *     int arrival_time
- */
-#if defined(__SUNPRO_C)
-  #pragma pack(1)
-#elif !defined(__GNUC__)
-  #pragma pack(push, 1)
-#endif
-struct __Pyx_PACKED __pyx_t_3csa_14data_structure_StopTimeEvent {
-  int stop_id;
-  int arrival_time;
-  int departure_time;
-};
-#if defined(__SUNPRO_C)
-  #pragma pack()
-#elif !defined(__GNUC__)
-  #pragma pack(pop)
-#endif
-
-/* "csa/data_structure.pxd":8
- *     int departure_time
  * 
  * cdef packed struct Transfer:             # <<<<<<<<<<<<<<
  *     int source_id
@@ -889,7 +868,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Transfer {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":13
+/* "csa/data_structure.pxd":8
  *     int time
  * 
  * cdef packed struct HubLink:             # <<<<<<<<<<<<<<
@@ -912,7 +891,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_HubLink {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":18
+/* "csa/data_structure.pxd":13
  *     int time
  * 
  * cdef packed struct Indices:             # <<<<<<<<<<<<<<
@@ -934,7 +913,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Indices {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":22
+/* "csa/data_structure.pxd":17
  *     int last
  * 
  * cdef packed struct Stop:             # <<<<<<<<<<<<<<
@@ -958,7 +937,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Stop {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":28
+/* "csa/data_structure.pxd":23
  *     Indices out_hubs_idx
  * 
  * cdef packed struct Connection:             # <<<<<<<<<<<<<<
@@ -984,21 +963,16 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Connection {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":34
- *     int departure_time, arrival_time
+/* "csa/data_structure.pxd":31
+ *     int arrival_time
  * 
  * cdef struct Stats:             # <<<<<<<<<<<<<<
  *     int num_stops
- *     int num_trips
+ *     int num_connections
  */
 struct __pyx_t_3csa_14data_structure_Stats {
   int num_stops;
-  int num_trips;
-  int num_nodes;
-  int num_transfers;
-  int num_events;
-  int num_in_hubs;
-  int num_out_hubs;
+  int num_connections;
 };
 
 /* --- Runtime support code (head) --- */
@@ -1535,7 +1509,7 @@ if (!__Pyx_RefNanny) {
   /* "csa/data_structure.pyx":1
  * cdef int INF_TIME = 1_000_000_000             # <<<<<<<<<<<<<<
  * 
- * cdef packed struct StopTimeEvent:
+ * cdef packed struct Transfer:
  */
   __pyx_v_3csa_14data_structure_INF_TIME = 0x3B9ACA00;
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)

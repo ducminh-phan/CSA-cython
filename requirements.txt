@@ -2,3 +2,4 @@ click
 Cython
 numpy
 pandas
+tqdm

@@ -1,4 +1,4 @@
-from csa.data_structure cimport HubLink, Stats, Stop, Transfer
+from csa.data_structure cimport Connection, HubLink, Stats, Stop, Transfer
 
 cdef:
     str path
@@ -7,5 +7,6 @@ cdef:
     Transfer [:] transfers
     HubLink [:] in_hubs
     HubLink [:] out_hubs
+    Connection [:] connections
 
 cpdef parse(location, hl)

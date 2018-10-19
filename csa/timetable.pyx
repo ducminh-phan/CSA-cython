@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from tqdm import tqdm
 
 cdef parse_stops():
     global stops, stats
@@ -30,7 +31,6 @@ cdef parse_transfers():
 
     # Convert the DataFrame to recarray to store in tranfers
     transfers = df.to_records(index=False).astype([('source_id', int), ('target_id', int), ('time', int)])
-    stats.num_transfers = len(df)
 
     source_ids = df['from_stop_id'].values
     source_ids, counts = np.unique(source_ids, return_counts=True)
@@ -60,7 +60,6 @@ cdef parse_in_hubs():
 
     # Convert the DataFrame to recarray to store in tranfers
     in_hubs = in_hubs_df.to_records(index=False).astype([('stop_id', int), ('node_id', int), ('time', int)])
-    stats.num_in_hubs = len(in_hubs_df)
 
     stop_ids = in_hubs_df[1].values
     stop_ids, counts = np.unique(stop_ids, return_counts=True)
@@ -87,7 +86,6 @@ cdef parse_out_hubs():
 
     # Convert the DataFrame to recarray to store in tranfers
     out_hubs = out_hubs_df.to_records(index=False).astype([('stop_id', int), ('node_id', int), ('time', int)])
-    stats.num_out_hubs = len(out_hubs_df)
 
     stop_ids = out_hubs_df[0].values
     stop_ids, counts = np.unique(stop_ids, return_counts=True)
@@ -104,6 +102,39 @@ cdef parse_out_hubs():
     for stop_id, first, last in zip(stop_ids, firsts, lasts):
         stops[stop_id].out_hubs_idx.first = first
         stops[stop_id].out_hubs_idx.last = last
+
+cdef parse_connections():
+    global stops, connections, stats
+
+    df = pd.read_csv(path + "stop_times.csv.gz")
+    df.rename(columns={"stop_id": "departure_stop_id", "stop_sequence": "index"}, inplace=True)
+    df['arrival_stop_id'] = [0] * len(df)
+
+    trip_ids, counts = np.unique(df['trip_id'], return_counts=True)
+
+    lasts = np.cumsum(counts)
+    firsts = np.roll(lasts, 1)
+    firsts[0] = 0
+
+    for trip_id, first, last in tqdm(zip(trip_ids, firsts, lasts), total=78757):
+        # Get the dataframe view for the current trip
+        group = df.iloc[first:last, :]
+
+        # Roll the arrival time and stop_id to get those of the connections
+        df.loc[first:last - 1, ['arrival_time', 'arrival_stop_id']] = np.roll(
+            group[['arrival_time', 'departure_stop_id']], -1, axis=0)
+
+    # Remove the last rows, since we have obtain arrival_time and arrival_stop_id by rolling the columns,
+    # only the first n - 1 rows are connections
+    df = df.drop(lasts - 1)
+
+    df = df[['trip_id', 'index', 'departure_stop_id', 'arrival_stop_id',
+             'departure_time', 'arrival_time']]
+    df = df.sort_values(['departure_time', 'arrival_time', 'trip_id', 'index'])
+
+    connections = df.to_records(index=False).astype([('trip_id', int), ('index', int),
+                                                     ('departure_stop_id', int), ('arrival_stop_id', int),
+                                                     ('departure_time', int), ('arrival_time', int)])
 
 def distance_to_time(distance):
     walking_speed = 4.0  # km/h
@@ -123,3 +154,5 @@ cpdef parse(location, hl):
     else:
         parse_in_hubs()
         parse_out_hubs()
+
+    parse_connections()

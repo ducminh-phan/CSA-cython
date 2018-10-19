@@ -3,9 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
+        "extra_compile_args": [
+            "-O3"
+        ],
         "name": "csa.csa",
         "sources": [
-            ".\\csa\\csa.pyx"
+            "csa\\csa.pyx"
         ]
     },
     "module_name": "csa.csa"
@@ -953,7 +956,6 @@ struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
-struct __pyx_t_3csa_14data_structure_StopTimeEvent;
 struct __pyx_t_3csa_14data_structure_Transfer;
 struct __pyx_t_3csa_14data_structure_HubLink;
 struct __pyx_t_3csa_14data_structure_Indices;
@@ -963,29 +965,6 @@ struct __pyx_t_3csa_14data_structure_Stats;
 
 /* "csa/data_structure.pxd":3
  * cdef int INF_TIME = 1_000_000_000
- * 
- * cdef packed struct StopTimeEvent:             # <<<<<<<<<<<<<<
- *     int stop_id
- *     int arrival_time
- */
-#if defined(__SUNPRO_C)
-  #pragma pack(1)
-#elif !defined(__GNUC__)
-  #pragma pack(push, 1)
-#endif
-struct __Pyx_PACKED __pyx_t_3csa_14data_structure_StopTimeEvent {
-  int stop_id;
-  int arrival_time;
-  int departure_time;
-};
-#if defined(__SUNPRO_C)
-  #pragma pack()
-#elif !defined(__GNUC__)
-  #pragma pack(pop)
-#endif
-
-/* "csa/data_structure.pxd":8
- *     int departure_time
  * 
  * cdef packed struct Transfer:             # <<<<<<<<<<<<<<
  *     int source_id
@@ -1007,7 +986,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Transfer {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":13
+/* "csa/data_structure.pxd":8
  *     int time
  * 
  * cdef packed struct HubLink:             # <<<<<<<<<<<<<<
@@ -1030,7 +1009,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_HubLink {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":18
+/* "csa/data_structure.pxd":13
  *     int time
  * 
  * cdef packed struct Indices:             # <<<<<<<<<<<<<<
@@ -1052,7 +1031,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Indices {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":22
+/* "csa/data_structure.pxd":17
  *     int last
  * 
  * cdef packed struct Stop:             # <<<<<<<<<<<<<<
@@ -1076,7 +1055,7 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Stop {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":28
+/* "csa/data_structure.pxd":23
  *     Indices out_hubs_idx
  * 
  * cdef packed struct Connection:             # <<<<<<<<<<<<<<
@@ -1102,21 +1081,16 @@ struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Connection {
   #pragma pack(pop)
 #endif
 
-/* "csa/data_structure.pxd":34
- *     int departure_time, arrival_time
+/* "csa/data_structure.pxd":31
+ *     int arrival_time
  * 
  * cdef struct Stats:             # <<<<<<<<<<<<<<
  *     int num_stops
- *     int num_trips
+ *     int num_connections
  */
 struct __pyx_t_3csa_14data_structure_Stats {
   int num_stops;
-  int num_trips;
-  int num_nodes;
-  int num_transfers;
-  int num_events;
-  int num_in_hubs;
-  int num_out_hubs;
+  int num_connections;
 };
 
 /* "View.MemoryView":104
@@ -1833,6 +1807,8 @@ static __Pyx_memviewslice *__pyx_vp_3csa_9timetable_in_hubs = 0;
 #define __pyx_v_3csa_9timetable_in_hubs (*__pyx_vp_3csa_9timetable_in_hubs)
 static __Pyx_memviewslice *__pyx_vp_3csa_9timetable_out_hubs = 0;
 #define __pyx_v_3csa_9timetable_out_hubs (*__pyx_vp_3csa_9timetable_out_hubs)
+static __Pyx_memviewslice *__pyx_vp_3csa_9timetable_connections = 0;
+#define __pyx_v_3csa_9timetable_connections (*__pyx_vp_3csa_9timetable_connections)
 static PyObject *(*__pyx_f_3csa_9timetable_parse)(PyObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
 
 /* Module declarations from 'csa.csa' */
@@ -16282,6 +16258,7 @@ static int __Pyx_modinit_variable_import_code(void) {
   if (__Pyx_ImportVoidPtr(__pyx_t_2, "transfers", (void **)&__pyx_vp_3csa_9timetable_transfers, "__Pyx_memviewslice") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ImportVoidPtr(__pyx_t_2, "in_hubs", (void **)&__pyx_vp_3csa_9timetable_in_hubs, "__Pyx_memviewslice") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ImportVoidPtr(__pyx_t_2, "out_hubs", (void **)&__pyx_vp_3csa_9timetable_out_hubs, "__Pyx_memviewslice") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ImportVoidPtr(__pyx_t_2, "connections", (void **)&__pyx_vp_3csa_9timetable_connections, "__Pyx_memviewslice") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   Py_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
