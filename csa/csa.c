@@ -834,6 +834,7 @@ static const char *__pyx_filename;
 static const char *__pyx_f[] = {
   "csa\\csa.pyx",
   "stringsource",
+  "csa\\timetable.pxd",
 };
 /* ForceInitThreads.proto */
 #ifndef __PYX_FORCE_INIT_THREADS
@@ -952,6 +953,7 @@ typedef struct {
 
 
 /*--- Type declarations ---*/
+struct __pyx_obj_3csa_9timetable_Timetable;
 struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
@@ -1093,6 +1095,27 @@ struct __pyx_t_3csa_14data_structure_Stats {
   int num_connections;
 };
 
+/* "csa/timetable.pxd":4
+ * 
+ * 
+ * cdef class Timetable:             # <<<<<<<<<<<<<<
+ *     cdef:
+ *         str path
+ */
+struct __pyx_obj_3csa_9timetable_Timetable {
+  PyObject_HEAD
+  struct __pyx_vtabstruct_3csa_9timetable_Timetable *__pyx_vtab;
+  PyObject *path;
+  int hl;
+  struct __pyx_t_3csa_14data_structure_Stats stats;
+  __Pyx_memviewslice stops;
+  __Pyx_memviewslice transfers;
+  __Pyx_memviewslice in_hubs;
+  __Pyx_memviewslice out_hubs;
+  __Pyx_memviewslice connections;
+};
+
+
 /* "View.MemoryView":104
  * 
  * @cname("__pyx_array")
@@ -1169,6 +1192,25 @@ struct __pyx_memoryviewslice_obj {
   int (*to_dtype_func)(char *, PyObject *);
 };
 
+
+
+/* "csa/timetable.pxd":4
+ * 
+ * 
+ * cdef class Timetable:             # <<<<<<<<<<<<<<
+ *     cdef:
+ *         str path
+ */
+
+struct __pyx_vtabstruct_3csa_9timetable_Timetable {
+  PyObject *(*parse)(struct __pyx_obj_3csa_9timetable_Timetable *);
+  PyObject *(*parse_stops)(struct __pyx_obj_3csa_9timetable_Timetable *);
+  PyObject *(*parse_transfers)(struct __pyx_obj_3csa_9timetable_Timetable *);
+  PyObject *(*parse_in_hubs)(struct __pyx_obj_3csa_9timetable_Timetable *);
+  PyObject *(*parse_out_hubs)(struct __pyx_obj_3csa_9timetable_Timetable *);
+  PyObject *(*parse_connections)(struct __pyx_obj_3csa_9timetable_Timetable *);
+};
+static struct __pyx_vtabstruct_3csa_9timetable_Timetable *__pyx_vtabptr_3csa_9timetable_Timetable;
 
 
 /* "View.MemoryView":104
@@ -1282,6 +1324,13 @@ static struct __pyx_vtabstruct__memoryviewslice *__pyx_vtabptr__memoryviewslice;
 #define __Pyx_CLEAR(r)    do { PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);} while(0)
 #define __Pyx_XCLEAR(r)   do { if((r) != NULL) {PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);}} while(0)
 
+/* PyObjectCall.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
+#else
+#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
+#endif
+
 /* RaiseArgTupleInvalid.proto */
 static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
     Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
@@ -1309,13 +1358,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject
 
 /* GetBuiltinName.proto */
 static PyObject *__Pyx_GetBuiltinName(PyObject *name);
-
-/* PyObjectCall.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
-#else
-#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
-#endif
 
 /* PyThreadStateGet.proto */
 #if CYTHON_FAST_THREAD_STATE
@@ -1659,6 +1701,20 @@ static int __Pyx_SetVtable(PyObject *dict, void *vtable);
 /* SetupReduce.proto */
 static int __Pyx_setup_reduce(PyObject* type_obj);
 
+/* TypeImport.proto */
+#ifndef __PYX_HAVE_RT_ImportType_proto
+#define __PYX_HAVE_RT_ImportType_proto
+enum __Pyx_ImportType_CheckSize {
+   __Pyx_ImportType_CheckSize_Error = 0,
+   __Pyx_ImportType_CheckSize_Warn = 1,
+   __Pyx_ImportType_CheckSize_Ignore = 2
+};
+static PyTypeObject *__Pyx_ImportType(PyObject* module, const char *module_name, const char *class_name, size_t size, enum __Pyx_ImportType_CheckSize check_size);
+#endif
+
+/* GetVTable.proto */
+static void* __Pyx_GetVtable(PyObject *dict);
+
 /* CLineInTraceback.proto */
 #ifdef CYTHON_CLINE_IN_TRACEBACK
 #define __Pyx_CLineForTraceback(tstate, c_line)  (((CYTHON_CLINE_IN_TRACEBACK)) ? c_line : 0)
@@ -1773,9 +1829,6 @@ static int __Pyx_check_binary_version(void);
 /* VoidPtrImport.proto */
 static int __Pyx_ImportVoidPtr(PyObject *module, const char *name, void **p, const char *sig);
 
-/* FunctionImport.proto */
-static int __Pyx_ImportFunction(PyObject *module, const char *funcname, void (**f)(void), const char *sig);
-
 /* InitStrings.proto */
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
@@ -1795,21 +1848,7 @@ static int *__pyx_vp_3csa_14data_structure_INF_TIME = 0;
 #define __pyx_v_3csa_14data_structure_INF_TIME (*__pyx_vp_3csa_14data_structure_INF_TIME)
 
 /* Module declarations from 'csa.timetable' */
-static PyObject **__pyx_vp_3csa_9timetable_path = 0;
-#define __pyx_v_3csa_9timetable_path (*__pyx_vp_3csa_9timetable_path)
-static struct __pyx_t_3csa_14data_structure_Stats *__pyx_vp_3csa_9timetable_stats = 0;
-#define __pyx_v_3csa_9timetable_stats (*__pyx_vp_3csa_9timetable_stats)
-static __Pyx_memviewslice *__pyx_vp_3csa_9timetable_stops = 0;
-#define __pyx_v_3csa_9timetable_stops (*__pyx_vp_3csa_9timetable_stops)
-static __Pyx_memviewslice *__pyx_vp_3csa_9timetable_transfers = 0;
-#define __pyx_v_3csa_9timetable_transfers (*__pyx_vp_3csa_9timetable_transfers)
-static __Pyx_memviewslice *__pyx_vp_3csa_9timetable_in_hubs = 0;
-#define __pyx_v_3csa_9timetable_in_hubs (*__pyx_vp_3csa_9timetable_in_hubs)
-static __Pyx_memviewslice *__pyx_vp_3csa_9timetable_out_hubs = 0;
-#define __pyx_v_3csa_9timetable_out_hubs (*__pyx_vp_3csa_9timetable_out_hubs)
-static __Pyx_memviewslice *__pyx_vp_3csa_9timetable_connections = 0;
-#define __pyx_v_3csa_9timetable_connections (*__pyx_vp_3csa_9timetable_connections)
-static PyObject *(*__pyx_f_3csa_9timetable_parse)(PyObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
+static PyTypeObject *__pyx_ptype_3csa_9timetable_Timetable = 0;
 
 /* Module declarations from 'csa.csa' */
 static PyTypeObject *__pyx_array_type = 0;
@@ -2123,33 +2162,45 @@ static PyObject *__pyx_codeobj__25;
 /* Late includes */
 
 /* "csa/csa.pyx":3
- * from csa.timetable cimport parse
+ * from csa.timetable cimport Timetable
  * 
  * cpdef test(location, hl):             # <<<<<<<<<<<<<<
- *     parse(location, hl)
+ *     timetable = Timetable(location, hl)
  */
 
 static PyObject *__pyx_pw_3csa_3csa_1test(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyObject *__pyx_f_3csa_3csa_test(PyObject *__pyx_v_location, PyObject *__pyx_v_hl, CYTHON_UNUSED int __pyx_skip_dispatch) {
+  CYTHON_UNUSED struct __pyx_obj_3csa_9timetable_Timetable *__pyx_v_timetable = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("test", 0);
 
   /* "csa/csa.pyx":4
  * 
  * cpdef test(location, hl):
- *     parse(location, hl)             # <<<<<<<<<<<<<<
+ *     timetable = Timetable(location, hl)             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __pyx_f_3csa_9timetable_parse(__pyx_v_location, __pyx_v_hl, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(__pyx_v_location);
+  __Pyx_GIVEREF(__pyx_v_location);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_location);
+  __Pyx_INCREF(__pyx_v_hl);
+  __Pyx_GIVEREF(__pyx_v_hl);
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_hl);
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_3csa_9timetable_Timetable), __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_timetable = ((struct __pyx_obj_3csa_9timetable_Timetable *)__pyx_t_2);
+  __pyx_t_2 = 0;
 
   /* "csa/csa.pyx":3
- * from csa.timetable cimport parse
+ * from csa.timetable cimport Timetable
  * 
  * cpdef test(location, hl):             # <<<<<<<<<<<<<<
- *     parse(location, hl)
+ *     timetable = Timetable(location, hl)
  */
 
   /* function exit code */
@@ -2157,9 +2208,11 @@ static PyObject *__pyx_f_3csa_3csa_test(PyObject *__pyx_v_location, PyObject *__
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
   __Pyx_AddTraceback("csa.csa.test", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_timetable);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -16236,53 +16289,45 @@ static int __Pyx_modinit_type_init_code(void) {
 
 static int __Pyx_modinit_type_import_code(void) {
   __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
+  __pyx_t_1 = PyImport_ImportModule("csa.timetable"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_ptype_3csa_9timetable_Timetable = __Pyx_ImportType(__pyx_t_1, "csa.timetable", "Timetable", sizeof(struct __pyx_obj_3csa_9timetable_Timetable), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_3csa_9timetable_Timetable) __PYX_ERR(2, 4, __pyx_L1_error)
+  __pyx_vtabptr_3csa_9timetable_Timetable = (struct __pyx_vtabstruct_3csa_9timetable_Timetable*)__Pyx_GetVtable(__pyx_ptype_3csa_9timetable_Timetable->tp_dict); if (unlikely(!__pyx_vtabptr_3csa_9timetable_Timetable)) __PYX_ERR(2, 4, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_RefNannyFinishContext();
+  return -1;
 }
 
 static int __Pyx_modinit_variable_import_code(void) {
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__Pyx_modinit_variable_import_code", 0);
   /*--- Variable import code ---*/
   __pyx_t_1 = PyImport_ImportModule("csa.data_structure"); if (!__pyx_t_1) __PYX_ERR(0, 1, __pyx_L1_error)
   if (__Pyx_ImportVoidPtr(__pyx_t_1, "INF_TIME", (void **)&__pyx_vp_3csa_14data_structure_INF_TIME, "int") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   Py_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_2 = PyImport_ImportModule("csa.timetable"); if (!__pyx_t_2) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ImportVoidPtr(__pyx_t_2, "path", (void **)&__pyx_vp_3csa_9timetable_path, "PyObject *") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ImportVoidPtr(__pyx_t_2, "stats", (void **)&__pyx_vp_3csa_9timetable_stats, "struct __pyx_t_3csa_14data_structure_Stats") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ImportVoidPtr(__pyx_t_2, "stops", (void **)&__pyx_vp_3csa_9timetable_stops, "__Pyx_memviewslice") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ImportVoidPtr(__pyx_t_2, "transfers", (void **)&__pyx_vp_3csa_9timetable_transfers, "__Pyx_memviewslice") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ImportVoidPtr(__pyx_t_2, "in_hubs", (void **)&__pyx_vp_3csa_9timetable_in_hubs, "__Pyx_memviewslice") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ImportVoidPtr(__pyx_t_2, "out_hubs", (void **)&__pyx_vp_3csa_9timetable_out_hubs, "__Pyx_memviewslice") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ImportVoidPtr(__pyx_t_2, "connections", (void **)&__pyx_vp_3csa_9timetable_connections, "__Pyx_memviewslice") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  Py_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
   __Pyx_RefNannyFinishContext();
   return -1;
 }
 
 static int __Pyx_modinit_function_import_code(void) {
   __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_import_code", 0);
   /*--- Function import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("csa.timetable"); if (!__pyx_t_1) __PYX_ERR(0, 1, __pyx_L1_error)
-  if (__Pyx_ImportFunction(__pyx_t_1, "parse", (void (**)(void))&__pyx_f_3csa_9timetable_parse, "PyObject *(PyObject *, PyObject *, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  Py_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_RefNannyFinishContext();
-  return -1;
 }
 
 
@@ -16474,16 +16519,16 @@ if (!__Pyx_RefNanny) {
   (void)__Pyx_modinit_variable_export_code();
   (void)__Pyx_modinit_function_export_code();
   if (unlikely(__Pyx_modinit_type_init_code() != 0)) goto __pyx_L1_error;
-  (void)__Pyx_modinit_type_import_code();
+  if (unlikely(__Pyx_modinit_type_import_code() != 0)) goto __pyx_L1_error;
   if (unlikely(__Pyx_modinit_variable_import_code() != 0)) goto __pyx_L1_error;
-  if (unlikely(__Pyx_modinit_function_import_code() != 0)) goto __pyx_L1_error;
+  (void)__Pyx_modinit_function_import_code();
   /*--- Execution code ---*/
   #if defined(__Pyx_Generator_USED) || defined(__Pyx_Coroutine_USED)
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
   /* "csa/csa.pyx":1
- * from csa.timetable cimport parse             # <<<<<<<<<<<<<<
+ * from csa.timetable cimport Timetable             # <<<<<<<<<<<<<<
  * 
  * cpdef test(location, hl):
  */
@@ -16687,6 +16732,26 @@ end:
 }
 #endif
 
+/* PyObjectCall */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    PyObject *result;
+    ternaryfunc call = func->ob_type->tp_call;
+    if (unlikely(!call))
+        return PyObject_Call(func, arg, kw);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = (*call)(func, arg, kw);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
+    }
+    return result;
+}
+#endif
+
 /* RaiseArgTupleInvalid */
 static void __Pyx_RaiseArgtupleInvalid(
     const char* func_name,
@@ -16877,26 +16942,6 @@ static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
     }
     return result;
 }
-
-/* PyObjectCall */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
-    PyObject *result;
-    ternaryfunc call = func->ob_type->tp_call;
-    if (unlikely(!call))
-        return PyObject_Call(func, arg, kw);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = (*call)(func, arg, kw);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
-    }
-    return result;
-}
-#endif
 
 /* PyErrFetchRestore */
 #if CYTHON_FAST_THREAD_STATE
@@ -18420,6 +18465,87 @@ GOOD:
     return ret;
 }
 
+/* TypeImport */
+#ifndef __PYX_HAVE_RT_ImportType
+#define __PYX_HAVE_RT_ImportType
+static PyTypeObject *__Pyx_ImportType(PyObject *module, const char *module_name, const char *class_name,
+    size_t size, enum __Pyx_ImportType_CheckSize check_size)
+{
+    PyObject *result = 0;
+    char warning[200];
+    Py_ssize_t basicsize;
+#ifdef Py_LIMITED_API
+    PyObject *py_basicsize;
+#endif
+    result = PyObject_GetAttrString(module, class_name);
+    if (!result)
+        goto bad;
+    if (!PyType_Check(result)) {
+        PyErr_Format(PyExc_TypeError,
+            "%.200s.%.200s is not a type object",
+            module_name, class_name);
+        goto bad;
+    }
+#ifndef Py_LIMITED_API
+    basicsize = ((PyTypeObject *)result)->tp_basicsize;
+#else
+    py_basicsize = PyObject_GetAttrString(result, "__basicsize__");
+    if (!py_basicsize)
+        goto bad;
+    basicsize = PyLong_AsSsize_t(py_basicsize);
+    Py_DECREF(py_basicsize);
+    py_basicsize = 0;
+    if (basicsize == (Py_ssize_t)-1 && PyErr_Occurred())
+        goto bad;
+#endif
+    if ((size_t)basicsize < size) {
+        PyErr_Format(PyExc_ValueError,
+            "%.200s.%.200s size changed, may indicate binary incompatibility. "
+            "Expected %zd from C header, got %zd from PyObject",
+            module_name, class_name, size, basicsize);
+        goto bad;
+    }
+    if (check_size == __Pyx_ImportType_CheckSize_Error && (size_t)basicsize != size) {
+        PyErr_Format(PyExc_ValueError,
+            "%.200s.%.200s size changed, may indicate binary incompatibility. "
+            "Expected %zd from C header, got %zd from PyObject",
+            module_name, class_name, size, basicsize);
+        goto bad;
+    }
+    else if (check_size == __Pyx_ImportType_CheckSize_Warn && (size_t)basicsize > size) {
+        PyOS_snprintf(warning, sizeof(warning),
+            "%s.%s size changed, may indicate binary incompatibility. "
+            "Expected %zd from C header, got %zd from PyObject",
+            module_name, class_name, size, basicsize);
+        if (PyErr_WarnEx(NULL, warning, 0) < 0) goto bad;
+    }
+    return (PyTypeObject *)result;
+bad:
+    Py_XDECREF(result);
+    return NULL;
+}
+#endif
+
+/* GetVTable */
+static void* __Pyx_GetVtable(PyObject *dict) {
+    void* ptr;
+    PyObject *ob = PyObject_GetItem(dict, __pyx_n_s_pyx_vtable);
+    if (!ob)
+        goto bad;
+#if PY_VERSION_HEX >= 0x02070000
+    ptr = PyCapsule_GetPointer(ob, 0);
+#else
+    ptr = PyCObject_AsVoidPtr(ob);
+#endif
+    if (!ptr && !PyErr_Occurred())
+        PyErr_SetString(PyExc_RuntimeError, "invalid vtable found for imported type");
+    Py_DECREF(ob);
+    return ptr;
+bad:
+    Py_XDECREF(ob);
+    return NULL;
+}
+
 /* CLineInTraceback */
 #ifndef CYTHON_CLINE_IN_TRACEBACK
 static int __Pyx_CLineForTraceback(PyThreadState *tstate, int c_line) {
@@ -19632,60 +19758,6 @@ static int __Pyx_ImportVoidPtr(PyObject *module, const char *name, void **p, con
     *p = PyCObject_AsVoidPtr(cobj);}
 #endif
     if (!(*p))
-        goto bad;
-    Py_DECREF(d);
-    return 0;
-bad:
-    Py_XDECREF(d);
-    return -1;
-}
-#endif
-
-/* FunctionImport */
-#ifndef __PYX_HAVE_RT_ImportFunction
-#define __PYX_HAVE_RT_ImportFunction
-static int __Pyx_ImportFunction(PyObject *module, const char *funcname, void (**f)(void), const char *sig) {
-    PyObject *d = 0;
-    PyObject *cobj = 0;
-    union {
-        void (*fp)(void);
-        void *p;
-    } tmp;
-    d = PyObject_GetAttrString(module, (char *)"__pyx_capi__");
-    if (!d)
-        goto bad;
-    cobj = PyDict_GetItemString(d, funcname);
-    if (!cobj) {
-        PyErr_Format(PyExc_ImportError,
-            "%.200s does not export expected C function %.200s",
-                PyModule_GetName(module), funcname);
-        goto bad;
-    }
-#if PY_VERSION_HEX >= 0x02070000
-    if (!PyCapsule_IsValid(cobj, sig)) {
-        PyErr_Format(PyExc_TypeError,
-            "C function %.200s.%.200s has wrong signature (expected %.500s, got %.500s)",
-             PyModule_GetName(module), funcname, sig, PyCapsule_GetName(cobj));
-        goto bad;
-    }
-    tmp.p = PyCapsule_GetPointer(cobj, sig);
-#else
-    {const char *desc, *s1, *s2;
-    desc = (const char *)PyCObject_GetDesc(cobj);
-    if (!desc)
-        goto bad;
-    s1 = desc; s2 = sig;
-    while (*s1 != '\0' && *s1 == *s2) { s1++; s2++; }
-    if (*s1 != *s2) {
-        PyErr_Format(PyExc_TypeError,
-            "C function %.200s.%.200s has wrong signature (expected %.500s, got %.500s)",
-             PyModule_GetName(module), funcname, sig, desc);
-        goto bad;
-    }
-    tmp.p = PyCObject_AsVoidPtr(cobj);}
-#endif
-    *f = tmp.fp;
-    if (!(*f))
         goto bad;
     Py_DECREF(d);
     return 0;

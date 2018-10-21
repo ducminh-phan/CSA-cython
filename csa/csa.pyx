@@ -1,4 +1,4 @@
-from csa.timetable cimport parse
+from csa.timetable cimport Timetable
 
 cpdef test(location, hl):
-    parse(location, hl)
+    timetable = Timetable(location, hl)
