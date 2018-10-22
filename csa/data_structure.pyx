@@ -30,4 +30,5 @@ cdef packed struct Connection:
 
 cdef struct Stats:
     int num_stops
+    int num_trips
     int num_connections

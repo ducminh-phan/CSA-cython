@@ -4,7 +4,6 @@ from csa.data_structure cimport Connection, HubLink, Stats, Stop, Transfer
 cdef class Timetable:
     cdef:
         str path
-        bint hl
         Stats stats
         Stop [:] stops
         Transfer [:] transfers

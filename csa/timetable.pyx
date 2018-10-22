@@ -2,30 +2,28 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
+from csa.config cimport location, use_hl
+
 def distance_to_time(distance):
     walking_speed = 4.0  # km/h
 
     return round(9 * distance / (25 * walking_speed))
 
 cdef class Timetable:
-    def __init__(self, str location, bint hl):
+    def __init__(self):
         print("Parsing {}".format(location))
 
         self.path = "Public-Transit-Data/" + location + "/"
-        self.hl = hl
         self.parse()
 
         print(self.stats.num_stops, "stops")
+        print(self.stats.num_trips, "trips")
         print(self.stats.num_connections, "connections")
-
-        cdef int i
-        for i in range(20, 40):
-            print(self.connections[i])
 
     cdef parse(self):
         self.parse_stops()
 
-        if not self.hl:
+        if not use_hl:
             self.parse_transfers()
         else:
             self.parse_in_hubs()
@@ -132,6 +130,8 @@ cdef class Timetable:
         df['arrival_stop_id'] = [0] * len(df)
 
         trip_ids, counts = np.unique(df['trip_id'], return_counts=True)
+
+        self.stats.num_trips = len(trip_ids)
 
         lasts = np.cumsum(counts)
         firsts = np.roll(lasts, 1)

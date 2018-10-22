@@ -1,5 +1,6 @@
 import click
 
+from csa.config import setup_params
 from csa.csa import test
 
 
@@ -11,7 +12,9 @@ from csa.csa import test
 def main(location, hl, profile, ranked):
     print(location, hl, profile, ranked)
 
-    test(location, hl)
+    setup_params(location, hl, profile, ranked)
+
+    test()
 
 
 if __name__ == "__main__":

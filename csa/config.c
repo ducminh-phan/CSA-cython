@@ -6,12 +6,12 @@
         "extra_compile_args": [
             "-O3"
         ],
-        "name": "csa.data_structure",
+        "name": "csa.config",
         "sources": [
-            "csa\\data_structure.pyx"
+            "csa\\config.pyx"
         ]
     },
-    "module_name": "csa.data_structure"
+    "module_name": "csa.config"
 }
 END: Cython Metadata */
 
@@ -617,8 +617,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__csa__data_structure
-#define __PYX_HAVE_API__csa__data_structure
+#define __PYX_HAVE__csa__config
+#define __PYX_HAVE_API__csa__config
 /* Early includes */
 #ifdef _OPENMP
 #include <omp.h>
@@ -827,154 +827,10 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "csa\\data_structure.pyx",
+  "csa\\config.pyx",
 };
-/* None.proto */
-#if defined(__GNUC__)
-#define __Pyx_PACKED __attribute__((__packed__))
-#else
-#define __Pyx_PACKED
-#endif
-
 
 /*--- Type declarations ---*/
-struct __pyx_t_3csa_14data_structure_Transfer;
-struct __pyx_t_3csa_14data_structure_HubLink;
-struct __pyx_t_3csa_14data_structure_Indices;
-struct __pyx_t_3csa_14data_structure_Stop;
-struct __pyx_t_3csa_14data_structure_Connection;
-struct __pyx_t_3csa_14data_structure_Stats;
-
-/* "csa/data_structure.pxd":3
- * cdef int INF_TIME = 1_000_000_000
- * 
- * cdef packed struct Transfer:             # <<<<<<<<<<<<<<
- *     int source_id
- *     int target_id
- */
-#if defined(__SUNPRO_C)
-  #pragma pack(1)
-#elif !defined(__GNUC__)
-  #pragma pack(push, 1)
-#endif
-struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Transfer {
-  int source_id;
-  int target_id;
-  int time;
-};
-#if defined(__SUNPRO_C)
-  #pragma pack()
-#elif !defined(__GNUC__)
-  #pragma pack(pop)
-#endif
-
-/* "csa/data_structure.pxd":8
- *     int time
- * 
- * cdef packed struct HubLink:             # <<<<<<<<<<<<<<
- *     int stop_id
- *     int node_id
- */
-#if defined(__SUNPRO_C)
-  #pragma pack(1)
-#elif !defined(__GNUC__)
-  #pragma pack(push, 1)
-#endif
-struct __Pyx_PACKED __pyx_t_3csa_14data_structure_HubLink {
-  int stop_id;
-  int node_id;
-  int time;
-};
-#if defined(__SUNPRO_C)
-  #pragma pack()
-#elif !defined(__GNUC__)
-  #pragma pack(pop)
-#endif
-
-/* "csa/data_structure.pxd":13
- *     int time
- * 
- * cdef packed struct Indices:             # <<<<<<<<<<<<<<
- *     int first
- *     int last
- */
-#if defined(__SUNPRO_C)
-  #pragma pack(1)
-#elif !defined(__GNUC__)
-  #pragma pack(push, 1)
-#endif
-struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Indices {
-  int first;
-  int last;
-};
-#if defined(__SUNPRO_C)
-  #pragma pack()
-#elif !defined(__GNUC__)
-  #pragma pack(pop)
-#endif
-
-/* "csa/data_structure.pxd":17
- *     int last
- * 
- * cdef packed struct Stop:             # <<<<<<<<<<<<<<
- *     int id
- *     Indices transfers_idx
- */
-#if defined(__SUNPRO_C)
-  #pragma pack(1)
-#elif !defined(__GNUC__)
-  #pragma pack(push, 1)
-#endif
-struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Stop {
-  int id;
-  struct __pyx_t_3csa_14data_structure_Indices transfers_idx;
-  struct __pyx_t_3csa_14data_structure_Indices in_hubs_idx;
-  struct __pyx_t_3csa_14data_structure_Indices out_hubs_idx;
-};
-#if defined(__SUNPRO_C)
-  #pragma pack()
-#elif !defined(__GNUC__)
-  #pragma pack(pop)
-#endif
-
-/* "csa/data_structure.pxd":23
- *     Indices out_hubs_idx
- * 
- * cdef packed struct Connection:             # <<<<<<<<<<<<<<
- *     int trip_id
- *     int index
- */
-#if defined(__SUNPRO_C)
-  #pragma pack(1)
-#elif !defined(__GNUC__)
-  #pragma pack(push, 1)
-#endif
-struct __Pyx_PACKED __pyx_t_3csa_14data_structure_Connection {
-  int trip_id;
-  int index;
-  int departure_stop_id;
-  int arrival_stop_id;
-  int departure_time;
-  int arrival_time;
-};
-#if defined(__SUNPRO_C)
-  #pragma pack()
-#elif !defined(__GNUC__)
-  #pragma pack(pop)
-#endif
-
-/* "csa/data_structure.pxd":31
- *     int arrival_time
- * 
- * cdef struct Stats:             # <<<<<<<<<<<<<<
- *     int num_stops
- *     int num_trips
- */
-struct __pyx_t_3csa_14data_structure_Stats {
-  int num_stops;
-  int num_trips;
-  int num_connections;
-};
 
 /* --- Runtime support code (head) --- */
 /* Refnanny.proto */
@@ -1039,6 +895,24 @@ struct __pyx_t_3csa_14data_structure_Stats {
     } while (0)
 #define __Pyx_CLEAR(r)    do { PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);} while(0)
 #define __Pyx_XCLEAR(r)   do { if((r) != NULL) {PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);}} while(0)
+
+/* RaiseArgTupleInvalid.proto */
+static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
+    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
+
+/* RaiseDoubleKeywords.proto */
+static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_name);
+
+/* ParseKeywords.proto */
+static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
+    PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
+    const char* function_name);
+
+/* ArgTypeTest.proto */
+#define __Pyx_ArgTypeTest(obj, type, none_allowed, name, exact)\
+    ((likely((Py_TYPE(obj) == type) | (none_allowed && (obj == Py_None)))) ? 1 :\
+        __Pyx__ArgTypeTest(obj, type, name, exact))
+static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact);
 
 /* PyObjectGetAttrStr.proto */
 #if CYTHON_USE_TYPE_SLOTS
@@ -1146,49 +1020,244 @@ static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr
 /* VoidPtrExport.proto */
 static int __Pyx_ExportVoidPtr(PyObject *name, void *p, const char *sig);
 
+/* FunctionExport.proto */
+static int __Pyx_ExportFunction(const char *name, void (*f)(void), const char *sig);
+
 /* InitStrings.proto */
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'csa.data_structure' */
-static int __pyx_v_3csa_14data_structure_INF_TIME;
-#define __Pyx_MODULE_NAME "csa.data_structure"
-extern int __pyx_module_is_main_csa__data_structure;
-int __pyx_module_is_main_csa__data_structure = 0;
+/* Module declarations from 'csa.config' */
+static PyObject *__pyx_v_3csa_6config_location = 0;
+static int __pyx_v_3csa_6config_use_hl;
+static int __pyx_v_3csa_6config_profile;
+static int __pyx_v_3csa_6config_ranked;
+static PyObject *__pyx_f_3csa_6config_setup_params(PyObject *, int, int, int, int __pyx_skip_dispatch); /*proto*/
+#define __Pyx_MODULE_NAME "csa.config"
+extern int __pyx_module_is_main_csa__config;
+int __pyx_module_is_main_csa__config = 0;
 
-/* Implementation of 'csa.data_structure' */
+/* Implementation of 'csa.config' */
+static const char __pyx_k_h[] = "h";
+static const char __pyx_k_l[] = "l";
+static const char __pyx_k_p[] = "p";
+static const char __pyx_k_r[] = "r";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_test[] = "__test__";
-static const char __pyx_k_INF_TIME[] = "INF_TIME";
+static const char __pyx_k_ranked[] = "ranked";
+static const char __pyx_k_use_hl[] = "use_hl";
+static const char __pyx_k_profile[] = "profile";
+static const char __pyx_k_location[] = "location";
 static const char __pyx_k_pyx_capi[] = "__pyx_capi__";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static PyObject *__pyx_n_s_INF_TIME;
 static PyObject *__pyx_n_s_cline_in_traceback;
+static PyObject *__pyx_n_s_h;
+static PyObject *__pyx_n_s_l;
+static PyObject *__pyx_n_s_location;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_name;
+static PyObject *__pyx_n_s_p;
+static PyObject *__pyx_n_s_profile;
 static PyObject *__pyx_n_s_pyx_capi;
+static PyObject *__pyx_n_s_r;
+static PyObject *__pyx_n_s_ranked;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_n_s_use_hl;
+static PyObject *__pyx_pf_3csa_6config_setup_params(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_l, int __pyx_v_h, int __pyx_v_p, int __pyx_v_r); /* proto */
 /* Late includes */
 
+/* "csa/config.pyx":1
+ * cpdef setup_params(str l, bint h, bint p, bint r):             # <<<<<<<<<<<<<<
+ *     global location, use_hl, profile, ranked
+ * 
+ */
+
+static PyObject *__pyx_pw_3csa_6config_1setup_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_f_3csa_6config_setup_params(PyObject *__pyx_v_l, int __pyx_v_h, int __pyx_v_p, int __pyx_v_r, CYTHON_UNUSED int __pyx_skip_dispatch) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("setup_params", 0);
+
+  /* "csa/config.pyx":4
+ *     global location, use_hl, profile, ranked
+ * 
+ *     location = l             # <<<<<<<<<<<<<<
+ *     use_hl = h
+ *     profile = p
+ */
+  __Pyx_INCREF(__pyx_v_l);
+  __Pyx_XGOTREF(__pyx_v_3csa_6config_location);
+  __Pyx_DECREF_SET(__pyx_v_3csa_6config_location, __pyx_v_l);
+  __Pyx_GIVEREF(__pyx_v_l);
+
+  /* "csa/config.pyx":5
+ * 
+ *     location = l
+ *     use_hl = h             # <<<<<<<<<<<<<<
+ *     profile = p
+ *     ranked = r
+ */
+  __pyx_v_3csa_6config_use_hl = __pyx_v_h;
+
+  /* "csa/config.pyx":6
+ *     location = l
+ *     use_hl = h
+ *     profile = p             # <<<<<<<<<<<<<<
+ *     ranked = r
+ */
+  __pyx_v_3csa_6config_profile = __pyx_v_p;
+
+  /* "csa/config.pyx":7
+ *     use_hl = h
+ *     profile = p
+ *     ranked = r             # <<<<<<<<<<<<<<
+ */
+  __pyx_v_3csa_6config_ranked = __pyx_v_r;
+
+  /* "csa/config.pyx":1
+ * cpdef setup_params(str l, bint h, bint p, bint r):             # <<<<<<<<<<<<<<
+ *     global location, use_hl, profile, ranked
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_3csa_6config_1setup_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_3csa_6config_1setup_params(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_l = 0;
+  int __pyx_v_h;
+  int __pyx_v_p;
+  int __pyx_v_r;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("setup_params (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_l,&__pyx_n_s_h,&__pyx_n_s_p,&__pyx_n_s_r,0};
+    PyObject* values[4] = {0,0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_l)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_h)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("setup_params", 1, 4, 4, 1); __PYX_ERR(0, 1, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_p)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("setup_params", 1, 4, 4, 2); __PYX_ERR(0, 1, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_r)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("setup_params", 1, 4, 4, 3); __PYX_ERR(0, 1, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "setup_params") < 0)) __PYX_ERR(0, 1, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+    }
+    __pyx_v_l = ((PyObject*)values[0]);
+    __pyx_v_h = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_h == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1, __pyx_L3_error)
+    __pyx_v_p = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_p == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1, __pyx_L3_error)
+    __pyx_v_r = __Pyx_PyObject_IsTrue(values[3]); if (unlikely((__pyx_v_r == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 1, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("setup_params", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 1, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("csa.config.setup_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_l), (&PyUnicode_Type), 1, "l", 1))) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_r = __pyx_pf_3csa_6config_setup_params(__pyx_self, __pyx_v_l, __pyx_v_h, __pyx_v_p, __pyx_v_r);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_3csa_6config_setup_params(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_l, int __pyx_v_h, int __pyx_v_p, int __pyx_v_r) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("setup_params", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __pyx_f_3csa_6config_setup_params(__pyx_v_l, __pyx_v_h, __pyx_v_p, __pyx_v_r, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("csa.config.setup_params", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
 static PyMethodDef __pyx_methods[] = {
+  {"setup_params", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_3csa_6config_1setup_params, METH_VARARGS|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 
 #if PY_MAJOR_VERSION >= 3
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
-static int __pyx_pymod_exec_data_structure(PyObject* module); /*proto*/
+static int __pyx_pymod_exec_config(PyObject* module); /*proto*/
 static PyModuleDef_Slot __pyx_moduledef_slots[] = {
   {Py_mod_create, (void*)__pyx_pymod_create},
-  {Py_mod_exec, (void*)__pyx_pymod_exec_data_structure},
+  {Py_mod_exec, (void*)__pyx_pymod_exec_config},
   {0, NULL}
 };
 #endif
 
 static struct PyModuleDef __pyx_moduledef = {
     PyModuleDef_HEAD_INIT,
-    "data_structure",
+    "config",
     0, /* m_doc */
   #if CYTHON_PEP489_MULTI_PHASE_INIT
     0, /* m_size */
@@ -1217,12 +1286,19 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_n_s_INF_TIME, __pyx_k_INF_TIME, sizeof(__pyx_k_INF_TIME), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
+  {&__pyx_n_s_h, __pyx_k_h, sizeof(__pyx_k_h), 0, 0, 1, 1},
+  {&__pyx_n_s_l, __pyx_k_l, sizeof(__pyx_k_l), 0, 0, 1, 1},
+  {&__pyx_n_s_location, __pyx_k_location, sizeof(__pyx_k_location), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
+  {&__pyx_n_s_p, __pyx_k_p, sizeof(__pyx_k_p), 0, 0, 1, 1},
+  {&__pyx_n_s_profile, __pyx_k_profile, sizeof(__pyx_k_profile), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_capi, __pyx_k_pyx_capi, sizeof(__pyx_k_pyx_capi), 0, 0, 1, 1},
+  {&__pyx_n_s_r, __pyx_k_r, sizeof(__pyx_k_r), 0, 0, 1, 1},
+  {&__pyx_n_s_ranked, __pyx_k_ranked, sizeof(__pyx_k_ranked), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_n_s_use_hl, __pyx_k_use_hl, sizeof(__pyx_k_use_hl), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
@@ -1255,6 +1331,7 @@ static int __Pyx_modinit_global_init_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_global_init_code", 0);
   /*--- Global init code ---*/
+  __pyx_v_3csa_6config_location = ((PyObject*)Py_None); Py_INCREF(Py_None);
   __Pyx_RefNannyFinishContext();
   return 0;
 }
@@ -1263,7 +1340,10 @@ static int __Pyx_modinit_variable_export_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_variable_export_code", 0);
   /*--- Variable export code ---*/
-  if (__Pyx_ExportVoidPtr(__pyx_n_s_INF_TIME, (void *)&__pyx_v_3csa_14data_structure_INF_TIME, "int") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportVoidPtr(__pyx_n_s_location, (void *)&__pyx_v_3csa_6config_location, "PyObject *") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportVoidPtr(__pyx_n_s_use_hl, (void *)&__pyx_v_3csa_6config_use_hl, "int") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportVoidPtr(__pyx_n_s_profile, (void *)&__pyx_v_3csa_6config_profile, "int") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (__Pyx_ExportVoidPtr(__pyx_n_s_ranked, (void *)&__pyx_v_3csa_6config_ranked, "int") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -1275,8 +1355,12 @@ static int __Pyx_modinit_function_export_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_function_export_code", 0);
   /*--- Function export code ---*/
+  if (__Pyx_ExportFunction("setup_params", (void (*)(void))__pyx_f_3csa_6config_setup_params, "PyObject *(PyObject *, int, int, int, int __pyx_skip_dispatch)") < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
+  __pyx_L1_error:;
+  __Pyx_RefNannyFinishContext();
+  return -1;
 }
 
 static int __Pyx_modinit_type_init_code(void) {
@@ -1328,11 +1412,11 @@ static int __Pyx_modinit_function_import_code(void) {
 
 
 #if PY_MAJOR_VERSION < 3
-__Pyx_PyMODINIT_FUNC initdata_structure(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC initdata_structure(void)
+__Pyx_PyMODINIT_FUNC initconfig(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC initconfig(void)
 #else
-__Pyx_PyMODINIT_FUNC PyInit_data_structure(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC PyInit_data_structure(void)
+__Pyx_PyMODINIT_FUNC PyInit_config(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC PyInit_config(void)
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 {
   return PyModuleDef_Init(&__pyx_moduledef);
@@ -1397,7 +1481,7 @@ bad:
 }
 
 
-static CYTHON_SMALL_CODE int __pyx_pymod_exec_data_structure(PyObject *__pyx_pyinit_module)
+static CYTHON_SMALL_CODE int __pyx_pymod_exec_config(PyObject *__pyx_pyinit_module)
 #endif
 #endif
 {
@@ -1406,7 +1490,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_data_structure(PyObject *__pyx_pyi
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   if (__pyx_m) {
     if (__pyx_m == __pyx_pyinit_module) return 0;
-    PyErr_SetString(PyExc_RuntimeError, "Module 'data_structure' has already been imported. Re-initialisation is not supported.");
+    PyErr_SetString(PyExc_RuntimeError, "Module 'config' has already been imported. Re-initialisation is not supported.");
     return -1;
   }
   #elif PY_MAJOR_VERSION >= 3
@@ -1421,7 +1505,7 @@ if (!__Pyx_RefNanny) {
       Py_FatalError("failed to import 'refnanny' module");
 }
 #endif
-  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_data_structure(void)", 0);
+  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_config(void)", 0);
   if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #ifdef __Pxy_PyFrame_Initialize_Offsets
   __Pxy_PyFrame_Initialize_Offsets();
@@ -1460,7 +1544,7 @@ if (!__Pyx_RefNanny) {
   Py_INCREF(__pyx_m);
   #else
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("data_structure", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("config", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
@@ -1479,14 +1563,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_csa__data_structure) {
+  if (__pyx_module_is_main_csa__config) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "csa.data_structure")) {
-      if (unlikely(PyDict_SetItemString(modules, "csa.data_structure", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "csa.config")) {
+      if (unlikely(PyDict_SetItemString(modules, "csa.config", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -1497,7 +1581,7 @@ if (!__Pyx_RefNanny) {
   /*--- Global type/function init code ---*/
   (void)__Pyx_modinit_global_init_code();
   if (unlikely(__Pyx_modinit_variable_export_code() != 0)) goto __pyx_L1_error;
-  (void)__Pyx_modinit_function_export_code();
+  if (unlikely(__Pyx_modinit_function_export_code() != 0)) goto __pyx_L1_error;
   (void)__Pyx_modinit_type_init_code();
   (void)__Pyx_modinit_type_import_code();
   (void)__Pyx_modinit_variable_import_code();
@@ -1507,12 +1591,11 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "csa/data_structure.pyx":1
- * cdef int INF_TIME = 1_000_000_000             # <<<<<<<<<<<<<<
+  /* "csa/config.pyx":1
+ * cpdef setup_params(str l, bint h, bint p, bint r):             # <<<<<<<<<<<<<<
+ *     global location, use_hl, profile, ranked
  * 
- * cdef packed struct Transfer:
  */
-  __pyx_v_3csa_14data_structure_INF_TIME = 0x3B9ACA00;
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -1525,11 +1608,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init csa.data_structure", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init csa.config", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_CLEAR(__pyx_m);
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init csa.data_structure");
+    PyErr_SetString(PyExc_ImportError, "init csa.config");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -1559,6 +1642,169 @@ end:
     return (__Pyx_RefNannyAPIStruct *)r;
 }
 #endif
+
+/* RaiseArgTupleInvalid */
+static void __Pyx_RaiseArgtupleInvalid(
+    const char* func_name,
+    int exact,
+    Py_ssize_t num_min,
+    Py_ssize_t num_max,
+    Py_ssize_t num_found)
+{
+    Py_ssize_t num_expected;
+    const char *more_or_less;
+    if (num_found < num_min) {
+        num_expected = num_min;
+        more_or_less = "at least";
+    } else {
+        num_expected = num_max;
+        more_or_less = "at most";
+    }
+    if (exact) {
+        more_or_less = "exactly";
+    }
+    PyErr_Format(PyExc_TypeError,
+                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                 func_name, more_or_less, num_expected,
+                 (num_expected == 1) ? "" : "s", num_found);
+}
+
+/* RaiseDoubleKeywords */
+static void __Pyx_RaiseDoubleKeywordsError(
+    const char* func_name,
+    PyObject* kw_name)
+{
+    PyErr_Format(PyExc_TypeError,
+        #if PY_MAJOR_VERSION >= 3
+        "%s() got multiple values for keyword argument '%U'", func_name, kw_name);
+        #else
+        "%s() got multiple values for keyword argument '%s'", func_name,
+        PyString_AsString(kw_name));
+        #endif
+}
+
+/* ParseKeywords */
+static int __Pyx_ParseOptionalKeywords(
+    PyObject *kwds,
+    PyObject **argnames[],
+    PyObject *kwds2,
+    PyObject *values[],
+    Py_ssize_t num_pos_args,
+    const char* function_name)
+{
+    PyObject *key = 0, *value = 0;
+    Py_ssize_t pos = 0;
+    PyObject*** name;
+    PyObject*** first_kw_arg = argnames + num_pos_args;
+    while (PyDict_Next(kwds, &pos, &key, &value)) {
+        name = first_kw_arg;
+        while (*name && (**name != key)) name++;
+        if (*name) {
+            values[name-argnames] = value;
+            continue;
+        }
+        name = first_kw_arg;
+        #if PY_MAJOR_VERSION < 3
+        if (likely(PyString_CheckExact(key)) || likely(PyString_Check(key))) {
+            while (*name) {
+                if ((CYTHON_COMPILING_IN_PYPY || PyString_GET_SIZE(**name) == PyString_GET_SIZE(key))
+                        && _PyString_Eq(**name, key)) {
+                    values[name-argnames] = value;
+                    break;
+                }
+                name++;
+            }
+            if (*name) continue;
+            else {
+                PyObject*** argname = argnames;
+                while (argname != first_kw_arg) {
+                    if ((**argname == key) || (
+                            (CYTHON_COMPILING_IN_PYPY || PyString_GET_SIZE(**argname) == PyString_GET_SIZE(key))
+                             && _PyString_Eq(**argname, key))) {
+                        goto arg_passed_twice;
+                    }
+                    argname++;
+                }
+            }
+        } else
+        #endif
+        if (likely(PyUnicode_Check(key))) {
+            while (*name) {
+                int cmp = (**name == key) ? 0 :
+                #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION >= 3
+                    (PyUnicode_GET_SIZE(**name) != PyUnicode_GET_SIZE(key)) ? 1 :
+                #endif
+                    PyUnicode_Compare(**name, key);
+                if (cmp < 0 && unlikely(PyErr_Occurred())) goto bad;
+                if (cmp == 0) {
+                    values[name-argnames] = value;
+                    break;
+                }
+                name++;
+            }
+            if (*name) continue;
+            else {
+                PyObject*** argname = argnames;
+                while (argname != first_kw_arg) {
+                    int cmp = (**argname == key) ? 0 :
+                    #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION >= 3
+                        (PyUnicode_GET_SIZE(**argname) != PyUnicode_GET_SIZE(key)) ? 1 :
+                    #endif
+                        PyUnicode_Compare(**argname, key);
+                    if (cmp < 0 && unlikely(PyErr_Occurred())) goto bad;
+                    if (cmp == 0) goto arg_passed_twice;
+                    argname++;
+                }
+            }
+        } else
+            goto invalid_keyword_type;
+        if (kwds2) {
+            if (unlikely(PyDict_SetItem(kwds2, key, value))) goto bad;
+        } else {
+            goto invalid_keyword;
+        }
+    }
+    return 0;
+arg_passed_twice:
+    __Pyx_RaiseDoubleKeywordsError(function_name, key);
+    goto bad;
+invalid_keyword_type:
+    PyErr_Format(PyExc_TypeError,
+        "%.200s() keywords must be strings", function_name);
+    goto bad;
+invalid_keyword:
+    PyErr_Format(PyExc_TypeError,
+    #if PY_MAJOR_VERSION < 3
+        "%.200s() got an unexpected keyword argument '%.200s'",
+        function_name, PyString_AsString(key));
+    #else
+        "%s() got an unexpected keyword argument '%U'",
+        function_name, key);
+    #endif
+bad:
+    return -1;
+}
+
+/* ArgTypeTest */
+static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact)
+{
+    if (unlikely(!type)) {
+        PyErr_SetString(PyExc_SystemError, "Missing type object");
+        return 0;
+    }
+    else if (exact) {
+        #if PY_MAJOR_VERSION == 2
+        if ((type == &PyBaseString_Type) && likely(__Pyx_PyBaseString_CheckExact(obj))) return 1;
+        #endif
+    }
+    else {
+        if (likely(__Pyx_TypeCheck(obj, type))) return 1;
+    }
+    PyErr_Format(PyExc_TypeError,
+        "Argument '%.200s' has incorrect type (expected %.200s, got %.200s)",
+        name, type->tp_name, Py_TYPE(obj)->tp_name);
+    return 0;
+}
 
 /* PyObjectGetAttrStr */
 #if CYTHON_USE_TYPE_SLOTS
@@ -2387,6 +2633,43 @@ static int __Pyx_ExportVoidPtr(PyObject *name, void *p, const char *sig) {
     if (!cobj)
         goto bad;
     if (PyDict_SetItem(d, name, cobj) < 0)
+        goto bad;
+    Py_DECREF(cobj);
+    Py_DECREF(d);
+    return 0;
+bad:
+    Py_XDECREF(cobj);
+    Py_XDECREF(d);
+    return -1;
+}
+
+/* FunctionExport */
+static int __Pyx_ExportFunction(const char *name, void (*f)(void), const char *sig) {
+    PyObject *d = 0;
+    PyObject *cobj = 0;
+    union {
+        void (*fp)(void);
+        void *p;
+    } tmp;
+    d = PyObject_GetAttrString(__pyx_m, (char *)"__pyx_capi__");
+    if (!d) {
+        PyErr_Clear();
+        d = PyDict_New();
+        if (!d)
+            goto bad;
+        Py_INCREF(d);
+        if (PyModule_AddObject(__pyx_m, (char *)"__pyx_capi__", d) < 0)
+            goto bad;
+    }
+    tmp.fp = f;
+#if PY_VERSION_HEX >= 0x02070000
+    cobj = PyCapsule_New(tmp.p, sig, 0);
+#else
+    cobj = PyCObject_FromVoidPtrAndDesc(tmp.p, (void *)sig, 0);
+#endif
+    if (!cobj)
+        goto bad;
+    if (PyDict_SetItemString(d, name, cobj) < 0)
         goto bad;
     Py_DECREF(cobj);
     Py_DECREF(d);
