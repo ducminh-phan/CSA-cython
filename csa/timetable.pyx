@@ -7,6 +7,7 @@ from libc.math cimport lround
 
 cimport csa.config as cfg
 from csa.data_structure cimport dtype
+from csa.data_structure import pdtype
 
 cdef dtype distance_to_time(dtype distance):
     cdef double walking_speed = 4.0  # km/h
@@ -48,10 +49,10 @@ cdef class Timetable:
         self.stats.num_stops = df['stop_id'].max() + 1
 
         self.stops = np.recarray(self.stats.num_stops,
-                                 dtype=[('id', np.int32),
-                                        ('transfers_first_idx', np.int32), ('transfers_last_idx', np.int32),
-                                        ('in_hubs_first_idx', np.int32), ('in_hubs_last_idx', np.int32),
-                                        ('out_hubs_first_idx', np.int32), ('out_hubs_last_idx', np.int32)])
+                                 dtype=[('id', pdtype),
+                                        ('transfers_first_idx', pdtype), ('transfers_last_idx', pdtype),
+                                        ('in_hubs_first_idx', pdtype), ('in_hubs_last_idx', pdtype),
+                                        ('out_hubs_first_idx', pdtype), ('out_hubs_last_idx', pdtype)])
 
         for i in range(len(self.stops)):
             self.stops[i].id = i
@@ -68,7 +69,7 @@ cdef class Timetable:
 
         # Convert the DataFrame to recarray to store in tranfers
         self.transfers = df.to_records(index=False).astype(
-            [('source_id', np.int32), ('target_id', np.int32), ('time', np.int32)])
+            [('source_id', pdtype), ('target_id', pdtype), ('time', pdtype)])
 
         source_ids = df['from_stop_id'].values
         source_ids, counts = np.unique(source_ids, return_counts=True)
@@ -96,7 +97,7 @@ cdef class Timetable:
 
         # Convert the DataFrame to recarray to store in tranfers
         self.in_hubs = in_hubs_df.to_records(index=False).astype(
-            [('stop_id', np.int32), ('node_id', np.int32), ('time', np.int32)])
+            [('stop_id', pdtype), ('node_id', pdtype), ('time', pdtype)])
 
         stop_ids = in_hubs_df[1].values
         stop_ids, counts = np.unique(stop_ids, return_counts=True)
@@ -121,7 +122,7 @@ cdef class Timetable:
 
         # Convert the DataFrame to recarray to store in tranfers
         self.out_hubs = out_hubs_df.to_records(index=False).astype(
-            [('stop_id', np.int32), ('node_id', np.int32), ('time', np.int32)])
+            [('stop_id', pdtype), ('node_id', pdtype), ('time', pdtype)])
 
         stop_ids = out_hubs_df[0].values
         stop_ids, counts = np.unique(stop_ids, return_counts=True)
@@ -155,7 +156,7 @@ cdef class Timetable:
         # Since the stop times events are sorted by trip and stop_sequence, we can shift the entire column
         # to make the first n - 1 events become connections, and the last rows will be removed
         df[['arrival_time', 'arrival_stop_id']] = \
-            df[['arrival_time', 'departure_stop_id']].shift(-1).fillna(0).astype(np.int32)
+            df[['arrival_time', 'departure_stop_id']].shift(-1).fillna(0).astype(pdtype)
 
         # Remove the last rows, since we have obtain arrival_time and arrival_stop_id by rolling the columns,
         # only the first n - 1 rows are connections
@@ -167,7 +168,7 @@ cdef class Timetable:
 
         self.stats.num_connections = len(df)
 
-        self.connections = df.to_records(index=False).astype([('trip_id', np.int32), ('index', np.int32),
-                                                              ('departure_stop_id', np.int32),
-                                                              ('arrival_stop_id', np.int32),
-                                                              ('departure_time', np.int32), ('arrival_time', np.int32)])
+        self.connections = df.to_records(index=False).astype([('trip_id', pdtype), ('index', pdtype),
+                                                              ('departure_stop_id', pdtype),
+                                                              ('arrival_stop_id', pdtype),
+                                                              ('departure_time', pdtype), ('arrival_time', pdtype)])

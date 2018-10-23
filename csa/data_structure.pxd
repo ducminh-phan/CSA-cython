@@ -1,6 +1,4 @@
-cimport numpy as cnp
-
-ctypedef cnp.int32_t dtype
+ctypedef size_t dtype
 
 cdef dtype INF = 1_000_000_000
 
