@@ -1,13 +1,17 @@
+from time import time
+
 import numpy as np
 import pandas as pd
+
+from libc.math cimport lround
 
 cimport csa.config as cfg
 from csa.data_structure cimport dtype
 
-def distance_to_time(distance):
-    walking_speed = 4.0  # km/h
+cdef dtype distance_to_time(dtype distance):
+    cdef double walking_speed = 4.0  # km/h
 
-    return round(9 * distance / (25 * walking_speed))
+    return lround(9 * distance / (25 * walking_speed))
 
 cdef class Timetable:
     def __init__(self):
@@ -21,6 +25,8 @@ cdef class Timetable:
         print(self.stats.num_connections, "connections")
 
     cdef parse(self):
+        start = time()
+
         self.parse_stops()
 
         if not cfg.use_hl:
@@ -30,6 +36,11 @@ cdef class Timetable:
             self.parse_out_hubs()
 
         self.parse_connections()
+
+        end = time()
+
+        print("Complete parsing the data")
+        print("Parsing time: {} seconds".format(round(end - start, 3)))
 
     cdef parse_stops(self):
         df = pd.read_csv(self.path + "stop_routes.csv.gz")
