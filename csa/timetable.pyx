@@ -1,8 +1,7 @@
 import numpy as np
 import pandas as pd
-from tqdm import tqdm
 
-from csa.config cimport location, use_hl
+cimport csa.config as cfg
 
 def distance_to_time(distance):
     walking_speed = 4.0  # km/h
@@ -11,9 +10,9 @@ def distance_to_time(distance):
 
 cdef class Timetable:
     def __init__(self):
-        print("Parsing {}".format(location))
+        print("Parsing {}".format(cfg.location))
 
-        self.path = "Public-Transit-Data/" + location + "/"
+        self.path = "Public-Transit-Data/" + cfg.location + "/"
         self.parse()
 
         print(self.stats.num_stops, "stops")
@@ -23,7 +22,7 @@ cdef class Timetable:
     cdef parse(self):
         self.parse_stops()
 
-        if not use_hl:
+        if not cfg.use_hl:
             self.parse_transfers()
         else:
             self.parse_in_hubs()
@@ -137,13 +136,10 @@ cdef class Timetable:
         firsts = np.roll(lasts, 1)
         firsts[0] = 0
 
-        for trip_id, first, last in tqdm(zip(trip_ids, firsts, lasts), total=78757):
-            # Get the dataframe view for the current trip
-            group = df.iloc[first:last, :]
-
-            # Roll the arrival time and stop_id to get those of the connections
-            df.loc[first:last - 1, ['arrival_time', 'arrival_stop_id']] = np.roll(
-                group[['arrival_time', 'departure_stop_id']], -1, axis=0)
+        # Since the stop times events are sorted by trip and stop_sequence, we can shift the entire column
+        # to make the first n - 1 events become connections, and the last rows will be removed
+        df[['arrival_time', 'arrival_stop_id']] = \
+            df[['arrival_time', 'departure_stop_id']].shift(-1).fillna(0).astype(int)
 
         # Remove the last rows, since we have obtain arrival_time and arrival_stop_id by rolling the columns,
         # only the first n - 1 rows are connections
