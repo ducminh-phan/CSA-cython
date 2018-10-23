@@ -1,7 +1,7 @@
-SOURCEDIR = csa
+.PHONY: build
 
-build: $(SOURCEDIR)/*.py $(SOURCEDIR)/*.pyx $(SOURCEDIR)/*.pxd
-	python3.6 setup.py build_ext --inplace
+build:
+	python3.6 setup.py build_ext --inplace -DMS_WIN64
 	clear
 
 run: build
@@ -10,3 +10,4 @@ run: build
 clean:
 	rm -rf csa/*.pyd
 	rm -rf csa/*.so
+	rm -rf build/
