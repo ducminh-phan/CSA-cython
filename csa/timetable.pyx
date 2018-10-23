@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 
 cimport csa.config as cfg
+from csa.data_structure cimport dtype
 
 def distance_to_time(distance):
     walking_speed = 4.0  # km/h
@@ -35,10 +36,11 @@ cdef class Timetable:
 
         self.stats.num_stops = df['stop_id'].max() + 1
 
-        self.stops = np.recarray(self.stats.num_stops, dtype=[('id', int),
-                                                              ('transfers_first_idx', int), ('transfers_last_idx', int),
-                                                              ('in_hubs_first_idx', int), ('in_hubs_last_idx', int),
-                                                              ('out_hubs_first_idx', int), ('out_hubs_last_idx', int)])
+        self.stops = np.recarray(self.stats.num_stops,
+                                 dtype=[('id', np.int32),
+                                        ('transfers_first_idx', np.int32), ('transfers_last_idx', np.int32),
+                                        ('in_hubs_first_idx', np.int32), ('in_hubs_last_idx', np.int32),
+                                        ('out_hubs_first_idx', np.int32), ('out_hubs_last_idx', np.int32)])
 
         for i in range(len(self.stops)):
             self.stops[i].id = i
@@ -54,7 +56,8 @@ cdef class Timetable:
         df = df.sort_values(['from_stop_id', 'min_transfer_time'])
 
         # Convert the DataFrame to recarray to store in tranfers
-        self.transfers = df.to_records(index=False).astype([('source_id', int), ('target_id', int), ('time', int)])
+        self.transfers = df.to_records(index=False).astype(
+            [('source_id', np.int32), ('target_id', np.int32), ('time', np.int32)])
 
         source_ids = df['from_stop_id'].values
         source_ids, counts = np.unique(source_ids, return_counts=True)
@@ -67,7 +70,7 @@ cdef class Timetable:
         firsts[0] = 0
 
         # Accumulate the indices to store in the stops
-        cdef int source_id, first, last
+        cdef dtype source_id, first, last
         for source_id, first, last in zip(source_ids, firsts, lasts):
             self.stops[source_id].transfers_idx.first = first
             self.stops[source_id].transfers_idx.last = last
@@ -81,7 +84,8 @@ cdef class Timetable:
         in_hubs_df = in_hubs_df.sort_values([1, 2])
 
         # Convert the DataFrame to recarray to store in tranfers
-        self.in_hubs = in_hubs_df.to_records(index=False).astype([('stop_id', int), ('node_id', int), ('time', int)])
+        self.in_hubs = in_hubs_df.to_records(index=False).astype(
+            [('stop_id', np.int32), ('node_id', np.int32), ('time', np.int32)])
 
         stop_ids = in_hubs_df[1].values
         stop_ids, counts = np.unique(stop_ids, return_counts=True)
@@ -94,7 +98,7 @@ cdef class Timetable:
         firsts[0] = 0
 
         # Accumulate the indices to store in the stops
-        cdef int stop_id, first, last
+        cdef dtype stop_id, first, last
         for stop_id, first, last in zip(stop_ids, firsts, lasts):
             self.stops[stop_id].in_hubs_idx.first = first
             self.stops[stop_id].in_hubs_idx.last = last
@@ -105,7 +109,8 @@ cdef class Timetable:
         out_hubs_df = out_hubs_df.sort_values([0, 2])
 
         # Convert the DataFrame to recarray to store in tranfers
-        self.out_hubs = out_hubs_df.to_records(index=False).astype([('stop_id', int), ('node_id', int), ('time', int)])
+        self.out_hubs = out_hubs_df.to_records(index=False).astype(
+            [('stop_id', np.int32), ('node_id', np.int32), ('time', np.int32)])
 
         stop_ids = out_hubs_df[0].values
         stop_ids, counts = np.unique(stop_ids, return_counts=True)
@@ -118,7 +123,7 @@ cdef class Timetable:
         firsts[0] = 0
 
         # Accumulate the indices to store in the stops
-        cdef int stop_id, first, last
+        cdef dtype stop_id, first, last
         for stop_id, first, last in zip(stop_ids, firsts, lasts):
             self.stops[stop_id].out_hubs_idx.first = first
             self.stops[stop_id].out_hubs_idx.last = last
@@ -139,7 +144,7 @@ cdef class Timetable:
         # Since the stop times events are sorted by trip and stop_sequence, we can shift the entire column
         # to make the first n - 1 events become connections, and the last rows will be removed
         df[['arrival_time', 'arrival_stop_id']] = \
-            df[['arrival_time', 'departure_stop_id']].shift(-1).fillna(0).astype(int)
+            df[['arrival_time', 'departure_stop_id']].shift(-1).fillna(0).astype(np.int32)
 
         # Remove the last rows, since we have obtain arrival_time and arrival_stop_id by rolling the columns,
         # only the first n - 1 rows are connections
@@ -151,6 +156,7 @@ cdef class Timetable:
 
         self.stats.num_connections = len(df)
 
-        self.connections = df.to_records(index=False).astype([('trip_id', int), ('index', int),
-                                                              ('departure_stop_id', int), ('arrival_stop_id', int),
-                                                              ('departure_time', int), ('arrival_time', int)])
+        self.connections = df.to_records(index=False).astype([('trip_id', np.int32), ('index', np.int32),
+                                                              ('departure_stop_id', np.int32),
+                                                              ('arrival_stop_id', np.int32),
+                                                              ('departure_time', np.int32), ('arrival_time', np.int32)])
