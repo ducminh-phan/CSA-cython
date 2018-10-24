@@ -3,20 +3,21 @@ cimport numpy as cnp
 from csa.data_structure cimport dtype
 from csa.timetable cimport Timetable
 
+
 cpdef test()
 
-cdef class ConnectionScan:
+
+cdef class ConnectionScan(Timetable):
     cdef:
-        Timetable timetable
         dtype [:] earliest_arrival_time
         cnp.uint8_t [:] is_reached
 
-    cdef update_departure_stop(ConnectionScan self, dtype dep_id)
+    cdef dtype query(self, dtype source_id, dtype target_id, dtype departure_time)
 
-    cdef update_out_hubs(ConnectionScan self, dtype arr_id, dtype arrival_time, dtype target_id)
+    cdef init(self)
 
-    cdef query(ConnectionScan self, dtype source_id, dtype target_id, dtype departure_time)
+    cdef clear(self)
 
-    cdef init(ConnectionScan self)
+    cdef update_departure_stop(self, dtype dep_id)
 
-    cdef clear(ConnectionScan self)
+    cdef update_out_hubs(self, dtype arr_id, dtype arrival_time, dtype target_id)
