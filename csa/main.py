@@ -1,7 +1,7 @@
 import click
 
 from csa.config import setup_params
-from csa.csa import test
+from csa.experiments import run_experiment
 
 
 @click.command()
@@ -10,11 +10,9 @@ from csa.csa import test
 @click.option("-p", "--profile", is_flag=True, default=False, help="Run profile query")
 @click.option("-r", "--ranked", is_flag=True, default=False, help="Used ranked queries")
 def main(location, hl, profile, ranked):
-    print(location, hl, profile, ranked)
-
     setup_params(location, hl, profile, ranked)
 
-    test()
+    run_experiment()
 
 
 if __name__ == "__main__":

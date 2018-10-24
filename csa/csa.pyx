@@ -4,14 +4,6 @@ cimport csa.config as cfg
 from csa.data_structure cimport INF, Connection, Stop, Transfer
 from csa.data_structure import pdtype
 
-cpdef test():
-    csa = ConnectionScan()
-    csa.init()
-
-    res = csa.query(12491, 8216, 61177)  # Paris
-    # res = csa.query(16445, 8994, 37610)  # London
-
-    print(res)
 
 cdef class ConnectionScan(Timetable):
     def __init__(self):
@@ -30,8 +22,6 @@ cdef class ConnectionScan(Timetable):
             for i in range(self.stops[source_id].transfers_idx.first,
                            self.stops[source_id].transfers_idx.last):
                 transfer = self.transfers[i]
-
-                assert transfer.source_id == source_id
 
                 self.earliest_arrival_time[transfer.target_id] = departure_time + transfer.time
 

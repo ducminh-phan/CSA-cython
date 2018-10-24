@@ -35,9 +35,25 @@ except ImportError:
 
 extensions = [Extension('*', source_files_patterns, extra_compile_args=['-O3'])]
 
+directives = {}
+opt = True
+prof = False
+
+if opt:
+    directives.update({
+        'boundscheck': False,
+        'wraparound': False,
+        'initializedcheck': False,
+        'cdivision': True,
+    })
+
+if prof:
+    directives['profile'] = True
+
 extensions = cythonize(extensions,
                        language_level=3,
                        annotate=True,
+                       compiler_directives=directives,
                        )
 
 setup(

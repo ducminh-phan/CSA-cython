@@ -4,9 +4,6 @@ from csa.data_structure cimport dtype
 from csa.timetable cimport Timetable
 
 
-cpdef test()
-
-
 cdef class ConnectionScan(Timetable):
     cdef:
         dtype [:] earliest_arrival_time
