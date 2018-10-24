@@ -2,6 +2,7 @@ from time import time
 
 import pandas as pd
 from libc.stdlib cimport malloc, free
+from tqdm import trange
 
 cimport csa.config as cfg
 from csa.data_structure import pdtype
@@ -40,7 +41,7 @@ cdef class Experiment(ConnectionScan):
             Result* res_ptr = <Result*> malloc(sizeof(Result) * n_queries)
             Result[:] results = <Result[:n_queries]> res_ptr
 
-        for i in range(n_queries):
+        for i in trange(n_queries):
             query = self.queries[i]
 
             self.init()
@@ -57,8 +58,6 @@ cdef class Experiment(ConnectionScan):
             results[i].rank = query.rank
             results[i].arrival_time = arrival_time
             results[i].running_time = elapsed_ms
-
-            print(i)
 
         print()
         print("Average running time: {} ms".format(round(running_time / n_queries, 4)))

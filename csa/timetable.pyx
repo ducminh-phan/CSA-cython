@@ -16,16 +16,17 @@ cdef dtype distance_to_time(dtype distance):
 
 cdef class Timetable:
     def __init__(self):
-        print("Parsing {}".format(cfg.location))
-
         self.path = "Public-Transit-Data/" + cfg.location + "/"
         self.parse()
 
         print(self.stats.num_stops, "stops")
         print(self.stats.num_trips, "trips")
         print(self.stats.num_connections, "connections")
+        print()
 
     cdef parse(self):
+        print("Parsing {}".format(cfg.location))
+
         start = time()
 
         self.parse_stops()
@@ -42,6 +43,7 @@ cdef class Timetable:
 
         print("Complete parsing the data")
         print("Parsing time: {} seconds".format(round(end - start, 3)))
+        print()
 
     cdef parse_stops(self):
         df = pd.read_csv(self.path + "stop_routes.csv.gz")
